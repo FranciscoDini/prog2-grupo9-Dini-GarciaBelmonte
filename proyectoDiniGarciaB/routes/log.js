@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/register', function(req,res){
-    res.render('register')
-});
+const controller = require('../controllers/logController')
 
-router.get('/login', function(req,res){
-    res.render('login')
-});
+router.get('/register', controller.register);
+
+router.get('/login', controller.login);
 
 module.exports = router
 
