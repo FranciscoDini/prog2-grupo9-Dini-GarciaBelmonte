@@ -1,12 +1,14 @@
+const datos = require('../db/datos')
+
 const controller = {
     products : function(req,res){
-        res.render('product')
+        res.render('product', {datos : datos})
     },
     search : function(req,res){
-        res.render('search-results')
+        res.render('search-results', {datos : datos})
     },
     add : function(req,res){
-        res.render('product-add')
+        res.render('product-add', {datos : datos})
     }
 };
 

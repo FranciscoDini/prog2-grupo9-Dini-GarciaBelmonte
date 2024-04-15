@@ -1,9 +1,11 @@
+const datos = require('../db/datos')
+
 const controller = {
     profile : function(req,res){
-        res.render('profile')
+        res.render('profile', {datos : datos})
     },
     edit : function(req,res){
-        res.render('profile-edit')
+        res.render('profile-edit', {datos : datos})
     }
 };
 
