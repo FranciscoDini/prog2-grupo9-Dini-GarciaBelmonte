@@ -30,19 +30,19 @@
 			<!-- Show the "ultimos" products -->
 			<form action="/profile" method="GET">
 				<label for="email">Email:</label><br>
-				<input type="email" id="email" name="email" required><br>
+				<input type="email" id="email" name="email" value="<%= datos.usuario.email %>"required><br>
 				
 				<label for="usuario">Usuario:</label><br>
-				<input type="text" id="usuario" name="usuario" required><br>
+				<input type="text" id="usuario" name="usuario" value="<%= datos.usuario.nombre %>"required><br>
 				
 				<label for="contrasenia">Contraseña:</label><br>
-				<input type="password" id="contrasenia" name="contrasenia" required><br>
+				<input type="password" id="contrasenia" name="contrasenia" value="<%= datos.usuario.contrasenia %>"required><br>
 				
 				<label for="fecha_nacimiento">Fecha de Nacimiento:</label><br>
-				<input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br>
+				<input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<%= datos.usuario.fechaNacimiento %>"required><br>
 				
 				<label for="nro_documento">Nro. de Documento:</label><br>
-				<input type="number" id="nro_documento" name="nro_documento" required><br>
+				<input type="number" id="nro_documento" name="nro_documento" value="<%= datos.usuario.nroDoc %>"required><br>
 				
 				<label for="foto_perfil">Foto de Perfil:</label><br>
 				<input type="text" id="foto_perfil" name="foto_perfil"><br>
