@@ -110,6 +110,11 @@ hr {
   cursor: pointer;
 }
 
+.logoHeader img{
+  height: 100px;
+  width: 100px;
+}
+
 
 /*====== Main Navbar ======*/
 .btn-toggle-navbar {
@@ -155,11 +160,14 @@ hr {
 
 /*====== Banner ======*/
 .banner {
-  background-image: url(/images/banner-fondo.jpg);
+ /* background-image: url(/images/banner-fondo.jpg);*/
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
   height: 100px;
+  background-color: #1259c3;
+  display: flex;
+  justify-content: center;
 }
 
 
@@ -173,7 +181,7 @@ hr {
   font-size: 2.4em;
   font-weight: 400;
   color: white; /* Color rojo en formato hexadecimal */
-  background-color: black;
+  background-color: #1E90FF;
   padding: 0.2em 0.5em; /* Ajustar el espacio interior alrededor del texto */
   display: inline-block; /* Hacer que el fondo se ajuste al tamaño del contenido */
 }
@@ -194,6 +202,10 @@ hr {
 
 .product-box_image {
   border-bottom: 1px solid var(--light-gray);
+}
+
+.product-box_image img{
+  height: 300px;
 }
 
 .product-box_data {
@@ -491,7 +503,14 @@ textarea.form-input {
   }
 
   .banner {
-    height: 320px;
+    height: fit-content;
+    margin-bottom: 60px;
+    background-color: #1259c3;
+  }
+
+  .banner img{
+    height: 500px;
+    width: 70%;
   }
 
   .btn-toggle-navbar {
