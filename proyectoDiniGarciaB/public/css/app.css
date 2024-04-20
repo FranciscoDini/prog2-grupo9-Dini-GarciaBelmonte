@@ -1,6 +1,53 @@
 /*====== Fonts ======*/
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap');
 
+/*.cormorant-garamond-regular {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-style: normal;
+} 
+
+.bebas-neue-regular {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.teko-<uniquifier> {
+  font-family: "Teko", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
+.jersey-20-regular {
+  font-family: "Jersey 20", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+*/
+
+h2{
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+p{
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 15px;
+}
+
+a{
+  font-family: "Teko", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
 
 /*====== Variables ======*/
 :root {
@@ -64,8 +111,16 @@ hr {
   border-bottom: solid 1px var(--light-gray);
 }
 
-
 /*====== Main Header ======*/
+
+.mainTitle{
+  font-family: "Jersey 20", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #000000;
+  font-size: 30px;
+}
+
 .main-header {
   padding: 15px 0;
   background-color: #1E90FF; /* Azul moderadamente claro */
@@ -78,7 +133,7 @@ hr {
 }
 
 .main-header_credit-link {
-  font-size: 1.5em;
+  font-size: 2em;
   margin-top: 20px;
   text-align: center;
 }
@@ -135,7 +190,7 @@ hr {
 
 .left-navbar,
 .right-navbar {
-  font-size: 1.5em;
+  font-size: 1.8em;
 }
 
 .logout{
@@ -160,14 +215,14 @@ hr {
 
 /*====== Banner ======*/
 .banner {
- /* background-image: url(/images/banner-fondo.jpg);*/
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  height: 100px;
   background-color: #1259c3;
-  display: flex;
-  justify-content: center;
+}
+
+.banner img{
+  height: 300px;
 }
 
 
@@ -181,7 +236,7 @@ hr {
   font-size: 2.4em;
   font-weight: 400;
   color: white; /* Color rojo en formato hexadecimal */
-  background-color: #1E90FF;
+  background-color: #1e8fff;
   padding: 0.2em 0.5em; /* Ajustar el espacio interior alrededor del texto */
   display: inline-block; /* Hacer que el fondo se ajuste al tamaño del contenido */
 }
@@ -471,6 +526,36 @@ textarea.form-input {
   padding: 15px;
 }
 
+
+.formBox{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formBox input{
+  border-style: solid;
+  border-color: #1E90FF;
+  border-radius: 5px;
+}
+
+label{ 
+  font-size: 20px;
+}
+
+input[type="submit"]{
+  font-size: 15px;
+  padding: 5px;
+  margin-top: 5px;
+  border-style: solid;
+  border-color: #1E90FF;
+}
+
+textarea{
+  border-style: solid;
+  border-color: #1E90FF;
+}
+
 /*====== Profile ======*/
 .info-usuario{
   border-bottom: 1px solid #ccc;
@@ -504,13 +589,8 @@ textarea.form-input {
 
   .banner {
     height: fit-content;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     background-color: #1259c3;
-  }
-
-  .banner img{
-    height: 500px;
-    width: 70%;
   }
 
   .btn-toggle-navbar {
