@@ -4,7 +4,7 @@ const router = express.Router();
 const controller = require('../controllers/profileController')
 
 /* profile */
-router.get('/', controller.profile);
+router.get('/:id', controller.profile);
 
 /* profile edit */
 router.get('/edit', controller.edit);
