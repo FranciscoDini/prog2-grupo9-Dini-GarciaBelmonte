@@ -5,7 +5,7 @@ const controller = require('../controllers/productsController')
 
 /* pagina products */
 
-router.get('/', controller.products);
+router.get('/id/:id', controller.products);
 
 /* search */
 router.get('/search-results', controller.search)
