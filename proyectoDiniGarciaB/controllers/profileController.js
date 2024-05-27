@@ -13,7 +13,7 @@ const controller = {
         usuarios.findByPk(id)
         .then((usuario)=>{
             data.usuario = usuario
-            productos.findAll()
+            productos.findAll({where:[{idUsuario:id}]})
             .then((producto)=>{
                 data.productos = producto
                 res.render('profile', {datos : data})
