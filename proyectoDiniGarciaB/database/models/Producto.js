@@ -37,5 +37,17 @@ module.exports = function(sequelize, dataTypes){
     }; 
 
     let productos = sequelize.define(alias,cols,config);
+
+    productos.associate = function(models){
+        productos.belongsTo(models.Usuario,{
+            as: "duenio", // estoy queriendo buscar al duenio del producto// 
+            foreignKey: "idUsuario",
+        })
+
+        productos.hasMany(models.Comentario,{
+            as: "comentarios",
+            foreignKey: "id"
+        })
+    }
     return productos; 
 }
