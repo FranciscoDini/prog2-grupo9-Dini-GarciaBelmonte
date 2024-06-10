@@ -3,10 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var profileRouter = require('./routes/profile');
 var productsRouter = require('./routes/products');
+
 
 var app = express();
 
@@ -20,6 +22,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/*session*/
+
+app.use(session({
+  secret: 'mensaje', 
+  resave: false, 
+  saveUninitialized: true
+}));
+
+app.use(function(req, res, next) {
+  if (req.session.user != undefined) {
+    res.locals.user = req.session.user;
+  }
+  return next();
+}
+);
+
+
+
 app.use('/', indexRouter);
 app.use('/profile', profileRouter);
 app.use('/products', productsRouter);
@@ -27,12 +47,12 @@ app.use('/products', productsRouter);
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -41,5 +61,25 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.use(function(req, res, next) {
+
+  if (req.cookies.userId != undefined && req.session.user == undefined) {
+    let idUsuario = req.cookies.userId;
+
+    db.User.findByPk(idUsuario)
+    .then((result) => {
+      req.session.user = result;
+      res.locals.user = result;
+      return next();
+    }).catch((err) => {
+      return console.log(err);
+    });
+    
+  } else {
+    return next();
+  }
+});
+
 
 module.exports = app;

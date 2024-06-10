@@ -4,7 +4,11 @@
 <%- include('./partials/head')  %>
 <body>
 	<!-- Header -->
-	<%- include('./partials/header') %>
+	<% if (locals.user != undefined) { %>
+		<%- include('./partials/headerLogueado') %>
+	 <% } else { %>
+		<%- include('./partials/header') %>
+	<% } %>
 	<!-- /Header -->
 
 	<!-- Novedades -->
@@ -14,7 +18,7 @@
 			<h2 class="products-title">Registrate</h2>
 			
 			<!-- Show the "ultimos" products -->
-			<form action="/" method="GET">
+			<form action="/profile/register" method="POST">
 				<label for="email">Email:</label><br>
 				<input type="email" id="email" name="email" required><br>
 				
@@ -28,10 +32,10 @@
 				<input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br>
 				
 				<label for="nro_documento">Nro. de Documento:</label><br>
-				<input type="number" id="nro_documento" name="nro_documento" required><br>
+				<input type="number" id="nroDocumento" name="nroDocumento" required><br>
 				
 				<label for="foto_perfil">Foto de Perfil:</label><br>
-				<input type="text" id="foto_perfil" name="foto_perfil"><br>
+				<input type="text" id="fotoPerfil" name="fotoPerfil"><br>
 				
 				<input type="submit" value="Registrarse">
 			</form>
