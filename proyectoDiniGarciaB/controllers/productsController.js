@@ -2,10 +2,16 @@ const datos = require('../database/models/index')
 
 const controller = {
     products : function (req, res) {
-        let idPeli = req.params.id
-        datos.Producto.findByPk(idPeli)
+        let idPeli = req.params.id;
+        let filtrado = {
+            include: [
+              {association: "duenio"},
+              {association: "comentarios"}
+            ]
+          }
+        datos.Producto.findByPk(idPeli, filtrado)
         .then(function (results) {
-        
+            //return res.render('product',{ datos : results})//
 
         return res.send(results)
         })
