@@ -5,25 +5,32 @@ module.exports = function(sequelize, dataTypes){
         id : {
             autoIncrement : true,
             primaryKey : true,
+            notNull : true,
             type : dataTypes.INTEGER
         },
         idUsuario : {
-            type : dataTypes.INTEGER
+            type : dataTypes.INTEGER,
+            notNull : true,
         },
         idProducto : {
-            type : dataTypes.INTEGER
+            type : dataTypes.INTEGER,
+            notNull : true,
         },
         texto : {
-            type : dataTypes.STRING
+            type : dataTypes.STRING,
+            notNull : true,
         },
         createdAt : {
-            type : dataTypes.DATE
+            type : dataTypes.DATE,
+            notNull : true,
         },
         updatedAt : {
-            type : dataTypes.DATE
+            type : dataTypes.DATE,
+            notNull : true,
         }, 
         deletedAt : {
-            type : dataTypes.DATE
+            type : dataTypes.DATE,
+            notNull : true,
         }
     }; 
 

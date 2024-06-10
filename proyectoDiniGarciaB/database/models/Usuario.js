@@ -22,15 +22,12 @@ module.exports = function(sequelize, dataTypes){
         },
         dni : {
             type : dataTypes.INTEGER,
-            notNull : true,
         },
         fechaNacimiento : {
             type : dataTypes.INTEGER,
-            notNull : true,
         },
         fotoPerfil : {
             type : dataTypes.STRING,
-            notNull : true,
         }, 
         createdAt : {
             type : dataTypes.DATE,
