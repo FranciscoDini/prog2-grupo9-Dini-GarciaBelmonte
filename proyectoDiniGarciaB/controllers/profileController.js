@@ -2,8 +2,7 @@ const datos = require('../database/models/index')
 const db = require('../database/models')
 const usuarios = db.Usuario
 const productos = db.Producto
-
-/*const bcrypt = require("bcryptjs")*/
+const bcrypt = require("bcryptjs")
 
 const controller = {
     profile: function (req, res) {
@@ -32,9 +31,44 @@ const controller = {
         }
     },
 
-    login: function (req, res) {
-        res.render('login', { datos: datos })
+    login: (req, res)=>{
+        return res.render("login")
     },
+
+    /*loginUsuario: (req, res)=>{
+        let formulario = req.body;
+        return res.send(formulario)
+    
+        let filtro = {
+            where: { mail: formulario.mail }
+        };
+    
+        datos.Usuario.findOne(filtro)
+        .then((results) => {
+    
+            if (results === null) {
+                return res.send("No existe el mail " + formulario.mail);
+            }
+    
+            let chequear = bcrypt.compareSync(formulario.contrasenia, results.contrasenia);
+            if (chequear) {
+                req.session.Usuario = results;
+    
+                /* que lo guarde en cookie si el usuario lo tildo
+                if (formulario.rememberme !== undefined) {
+                    res.cookie("idUsuario", results.id, { maxAge: 1000 * 60 * 15 });
+                }
+                return res.redirect("/product");
+            } else {
+                return res.send("La contraseña es incorrecta");
+            }
+    
+        }).catch((err) => {
+            console.log(err);
+            return res.status(500).send("Error en el servidor");
+        });
+    },*/
+    
 
     store: (req, res) => {
         let form = req.body;

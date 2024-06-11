@@ -10,7 +10,8 @@ router.get('/id/:id', controller.profile);
 router.get('/edit', controller.edit);
 
 router.get('/register', controller.register);
-router.post('/register', controller.store)
+
+router.post('/register', controller.store);
 
 router.get('/login', controller.login);
 
