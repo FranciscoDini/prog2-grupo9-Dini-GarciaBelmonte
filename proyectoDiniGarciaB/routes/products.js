@@ -8,12 +8,14 @@ const controller = require('../controllers/productsController')
 
 router.get('/id/:id', controller.products);
 
-/* search */
-router.get('/search-results', controller.search)
-
 /* add */
 
 router.get('/add', controller.add);
+
+/* search */
+// router.get('/search-results', controller.search);
+router.get('/search-results', controller.showOne);
+
 
 
 module.exports = router
