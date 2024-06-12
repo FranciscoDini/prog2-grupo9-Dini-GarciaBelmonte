@@ -11,6 +11,7 @@ router.get('/id/:id', controller.products);
 /* add */
 
 router.get('/add', controller.add);
+router.post('/add', controller.store)
 
 /* search */
 // router.get('/search-results', controller.search);

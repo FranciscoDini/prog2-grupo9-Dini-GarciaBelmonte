@@ -1,3 +1,4 @@
+const db = require('../database/models/index');
 const datos = require('../database/models/index')
 
 const controller = {
@@ -20,12 +21,15 @@ const controller = {
       })
 
   },
+
   search: (req, res) => {
     res.render('search-results', { datos: datos })
   },
+
   add: function (req, res) {
     res.render('product-add', { datos: datos })
   },
+
   showOne: (req, res) => {
     let qs = req.query.search;
 
@@ -41,6 +45,25 @@ const controller = {
         return console.log(error);;
       });
   },
+
+  store : function(req,res){
+    let form = req.body
+
+    let product = {
+      idUsuario : 1, //req.session.user.id,
+      fotoProducto : form.fotoProducto,
+      nombreProducto : form.nombreProducto,
+      descripcion : form.descripcion
+    }
+
+    db.Producto.create(product)
+    .then((result) => {
+        return res.redirect("/")
+    }).catch((err) => {
+        return console.log(err);
+    });
+  }
+
 };
 
 
