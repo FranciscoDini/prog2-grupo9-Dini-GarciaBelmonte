@@ -29,7 +29,7 @@ const controller = {
 
   add: function (req, res) {
     if (req.session.user == undefined) {
-      res.redirect('/users/login')
+      res.redirect('/profile/login')
     } else {
       res.render('product-add')
       res.render('product-add', { datos: datos })
