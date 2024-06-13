@@ -1,5 +1,5 @@
-const db = require('../database/models/index');
 const datos = require('../database/models/index');
+const op = datos.Sequelize.Op
 
 
 const controller = {
@@ -49,18 +49,19 @@ const controller = {
     let datosProducto = req.query.search;
 
     let filtro = {
-      where: [{ nombreProducto: datosProducto }],
+      where: {[op.or]: [{nombreProducto: {[op.like]: "%" + datosProducto + "%"}},{descripcion: {[op.like]: "%" + datosProducto + "%"}}]},
       include : [
         {association : "duenio"},
         {association : "comentarios"}
-    ]
+      ],
+      order : [["createdAt", "DESC"]],
     }
     
 
     datos.Producto.findAll(filtro)
       .then(function (result) {
-        return res.send(result);
-        // return res.render('search-results', { datos: datos })
+        //return res.send(result);
+         return res.render('search-results', { datos: result })
       }).catch(function (error) {
         return console.log(error);;
       });
@@ -76,7 +77,7 @@ const controller = {
       descripcion: form.descripcion
     }
 
-    db.Producto.create(product)
+    datos.Producto.create(product)
       .then((result) => {
         return res.redirect("/")
       }).catch((err) => {

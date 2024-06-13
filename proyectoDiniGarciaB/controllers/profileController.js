@@ -2,25 +2,30 @@ const datos = require('../database/models/index')
 const db = require('../database/models')
 const productos = db.Producto
 const bcrypt = require("bcryptjs")
+const { validationResult } = require("express-validator")
+
 
 const controller = {
     profile: function (req, res) {
         let id = req.params.id
         let criterio = {
-            include: {
-                association: "camisetas"
-            }
+            include: [
+                {association: "camisetas"},
+                {association: "comentarios"},
+            ],
+            order: [["createdAt", "DESC"]],
         }
         datos.Usuario.findByPk(id, criterio)
             .then((usuario) => {
-                return res.render('profile', {user : usuario})
+                //return res.send(usuario)
+                return res.render('profile', { user: usuario })
 
             }).catch(function (err) {
                 return console.log(err);
             })
     },
     edit: function (req, res) {
-        res.render('profile-edit', { datos: datos})
+        res.render('profile-edit', { datos: datos })
     },
     register: (req, res) => {
         if (req.session.user != undefined) {
@@ -42,7 +47,7 @@ const controller = {
         let formulario = req.body;
 
         let filtrar = {
-            where: { mail : formulario.mail }
+            where: { mail: formulario.mail }
         };
 
         console.log('filtro', filtrar)
@@ -76,26 +81,36 @@ const controller = {
 
 
     store: (req, res) => {
-        let form = req.body;
+        let errores = validationResult(req)
+        return res.send(errores)
+        if (errores.isEmpty()) {
+            let form = req.body;
 
-        let user = {
-            nombreUsuario: form.usuario,
-            mail: form.email,
-            contrasenia: bcrypt.hashSync(form.contrasenia, 10),
-            fechaNacimiento: form.fechaNacimiento,
-            dni: form.nroDocumento,
-            fotoPerfil: form.fotoPerfil
-        };
+            let user = {
+                nombreUsuario: form.usuario,
+                mail: form.email,
+                contrasenia: bcrypt.hashSync(form.contrasenia, 10),
+                fechaNacimiento: form.fechaNacimiento,
+                dni: form.nroDocumento,
+                fotoPerfil: form.fotoPerfil
+            };
 
-        db.Usuario.create(user)
-            .then((result) => {
-                return res.redirect("/profile/login");
-            }).catch((err) => {
-                return console.log(err);
-            });
-    },  
+            db.Usuario.create(user)
+                .then((result) => {
+                    return res.redirect("/profile/login");
+                }).catch((err) => {
+                    return console.log(err);
+                });
 
-    logout : function(req, res) {
+        } else {
+            return res.render("register", {
+                mensajeError: errores.mapped(),
+                old: req.body,
+            })
+        }
+    },
+
+    logout: function (req, res) {
         req.session.destroy();
         res.clearCookie("userId")
         return res.redirect("/")

@@ -21,9 +21,15 @@
 			<form action="/profile/register" method="POST">
 				<label for="email">Email:</label><br>
 				<input type="email" id="email" name="email" required><br>
+				<% if (locals.errores && mensajeError.email) { %>
+					<p class="error"><%= errores.email.msg %></p>
+				<% } %>
 				
 				<label for="usuario">Usuario:</label><br>
 				<input type="text" id="usuario" name="usuario" required><br>
+				<% if (locals.errores && mensajeError.usuario) { %>
+					<p class="error"><%= errores.usuario.msg %></p>
+				<% } %>
 				
 				<label for="contrasenia">Contraseña:</label><br>
 				<input type="password" id="contrasenia" name="contrasenia" required><br>

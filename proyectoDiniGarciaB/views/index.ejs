@@ -31,12 +31,12 @@
 				<section class="product-box">
 					<a href="/products/id/<%= datos[i].id %>">
 						<figure class="product-box_image">
-							<img src="images/products/<%= datos[i].fotoProducto %>" alt="default">
+							<img src="/images/products/<%= datos[i].fotoProducto %>" alt="default">
 						</figure>
 						<article class="product-box_data">
 							<h2><%= datos[i].nombreProducto %></h2>
 							<p><%= datos[i].descripcion %></p>
-							<a href="/profile/<%= datos[i].duenio.id %>"><%= datos[i].duenio.nombreUsuario %></a>
+							<a href="/profile/id/<%= datos[i].duenio.id %>"><%= datos[i].duenio.nombreUsuario %></a>
 						</article>
 					</a>
 				</section>
@@ -57,12 +57,12 @@
 					<section class="product-box">
 						<a href="/products/id/<%= datos[i].id %>">
 							<figure class="product-box_image">
-								<img src="images/products/<%= datos[i].fotoProducto %>" alt="default">
+								<img src="/images/products/<%= datos[i].fotoProducto %>" alt="default">
 							</figure>
 							<article class="product-box_data">
 								<h2><%= datos[i].nombreProducto %></h2>
 								<p><%= datos[i].descripcion %></p>
-								<a href="/profile/<%= datos[i].duenio.id %>"><%= datos[i].duenio.nombreUsuario %></a>
+								<a href="/profile/id/<%= datos[i].duenio.id %>"><%= datos[i].duenio.nombreUsuario %></a>
 							</article>
 						</a>
 					</section>

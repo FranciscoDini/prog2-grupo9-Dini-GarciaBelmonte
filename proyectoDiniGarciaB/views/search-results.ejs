@@ -19,17 +19,18 @@
                 <h2 class="products-title">Resultados de búsqueda</h2>
             </div>
             <!-- Show mis productos -->
-            <% if (datos.productos && datos.productos.length > 0) { %>
-                <% for(let i = 0; i < datos.productos.length; i++) { %>
+            <% if (datos && datos.length > 0) { %>
+                <% for(let i = 0; i < datos.length; i++) { %>
                     <div class="col-12 col-sm-6 col-lg-3">
                         <section class="product-box">
-                            <a href="/products">
+                            <a href="/products/id/<%= datos[i].id %>">
                                 <figure class="product-box_image">
-                                    <img src="<%= datos.productos[i].imagen %>" alt="cafetera moulinex">
+                                    <img src="/images/products/<%= datos[i].fotoProducto %>" alt="default">
                                 </figure>
                                 <article class="product-box_data">
-                                    <h2><%= datos.productos[i].nombre %></h2>
-                                    <p><%= datos.productos[i].descripcion %></p>
+                                    <h2><%= datos[i].nombreProducto %></h2>
+                                    <p><%= datos[i].descripcion %></p>
+                                    <a href="/profile/id/<%= datos[i].duenio.id %>"><%= datos[i].duenio.nombreUsuario %></a>
                                 </article>
                             </a>
                         </section>
@@ -37,7 +38,7 @@
                 <% } %>
             <% } else { %>
                 <div class="col-12">
-                    <p>No se encontraron productos.</p>
+                    <p>No hay resultados para su criterio de búsqueda.</p>
                 </div>
             <% } %>
         </div>
