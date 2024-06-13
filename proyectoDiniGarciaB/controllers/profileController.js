@@ -39,28 +39,28 @@ const controller = {
     },
 
     loginUsuario: (req, res) => {
-        let form = req.body;
+        let formulario = req.body;
 
-        let filtro = {
-            where: { mail : form.mail }
+        let filtrar = {
+            where: { mail : formulario.mail }
         };
 
-        console.log('filtro', filtro)
+        console.log('filtro', filtrar)
 
-        datos.Usuario.findOne(filtro)
+        datos.Usuario.findOne(filtrar)
             .then((results) => {
 
                 if (results === null) {
-                    return res.send("No existe un usuario con el mail " + form.mail);
+                    return res.send("No existe un usuario con el mail " + formulario.mail);
                 }
 
-                let chequear = bcrypt.compareSync(form.contrasenia, results.contrasenia);
+                let chequear = bcrypt.compareSync(formulario.contrasenia, results.contrasenia);
                 console.log('check', chequear);
                 if (chequear) {
                     req.session.user = results;
 
-                    //que lo guarde en cookie si el usuario lo tildo
-                    if (form.recordarme !== undefined) {
+                    //guardar en cookie si el usuario puso que si
+                    if (formulario.recordarme !== undefined) {
                         res.cookie("idUsuario", results.id, { maxAge: 1000 * 60 * 15 });
                     }
                     return res.redirect("/");
@@ -96,9 +96,7 @@ const controller = {
     },  
 
     logout : function(req, res) {
-        req.session.destroy();
-        res.clearCookie("userId")
-        return res.redirect("/")
+
     }
 };
 

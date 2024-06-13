@@ -35,14 +35,29 @@ const controller = {
       res.render('product-add', { datos: datos })
     }
   },
-  showOne: (req, res) => {
-    let qs = req.query.search;
 
-    let filtrado = {
-      where: [{ nombreProducto: qs }]
+  /*showFormCreate: function (req, res) {
+
+    if (req.session.user == undefined) {
+        return res.redirect("/profile/login")
+    } else {
+      return res.render("register");
     }
+  },*/
 
-    datos.Producto.findOne(filtrado)
+  showOne: (req, res) => {
+    let datosProducto = req.query.search;
+
+    let filtro = {
+      where: [{ nombreProducto: datosProducto }],
+      include : [
+        {association : "duenio"},
+        {association : "comentarios"}
+    ]
+    }
+    
+
+    datos.Producto.findAll(filtro)
       .then(function (result) {
         return res.send(result);
         // return res.render('search-results', { datos: datos })

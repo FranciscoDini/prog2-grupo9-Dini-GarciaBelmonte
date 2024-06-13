@@ -11,10 +11,12 @@ router.get('/id/:id', controller.products);
 /* add */
 
 router.get('/add', controller.add);
-router.post('/add', controller.store)
+router.post('/add', controller.store);
 
 /* search */
 // router.get('/search-results', controller.search);
+
+// router.get('/register', controller.showFormCreate);
 router.get('/search-results', controller.showOne);
 
 
