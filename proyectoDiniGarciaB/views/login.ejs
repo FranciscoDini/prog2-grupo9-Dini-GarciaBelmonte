@@ -10,7 +10,7 @@
 		<%- include('./partials/header') %>
 	<% } %>
 	<!-- /Header -->
-
+	 
 	<!-- Novedades -->
 	<div class="container products-wrapper">
 		<div class="row formBox">
@@ -18,12 +18,12 @@
 			<h2 class="products-title">Ingresar</h2>
 			
 			<!-- Show the "ultimos" products -->
-			<form action="/" method="GET">
+			<form action="/profile/login" method="POST">
 				<label for="usuario">Usuario (Email):</label><br>
-				<input type="email" id="usuario" name="usuario" required><br>
+				<input type="email" id="mail" name="mail" required><br>
 				
 				<label for="contrasenia">Contraseña:</label><br>
-				<input type="password" id="contrasenia" name="contraseña" required><br>
+				<input type="password" id="contrasenia" name="contrasenia" required><br>
 				
 				<label for="recordarme">Recordarme:</label>
 				<input type="checkbox" id="recordarme" name="recordarme"><br>
@@ -31,7 +31,7 @@
 				<input type="submit" value="Iniciar Sesión">
 			</form>
 
-
+ 
 	<!-- footer -->
 	<%- include('./partials/footer') %>
 	<!-- /footer -->

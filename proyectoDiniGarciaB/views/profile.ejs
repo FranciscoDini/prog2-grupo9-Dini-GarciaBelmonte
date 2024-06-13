@@ -15,11 +15,11 @@
 	<section class="info-usuario container products-wrapper">
 		<div class="row">
 			<div class="img-container offset-3 col-2">
-				<img src="/images/<%= usuario.fotoPerfil %>"  alt="foto de perfil" class="foto-perfil">
+				<img src="/images/<%= user.fotoPerfil %>"  alt="foto de perfil" class="foto-perfil">
 			</div>
 			<div class="data-container col-6">
 				<div class="d-flex align-items-center ">
-					<h1 class="main-title"><%= usuario.nombreUsuario %>
+					<h1 class="main-title"><%= user.nombreUsuario %>
 						<a href="/profile/edit">
 							<i class="fas fa-cog"></i>
 						</a>
@@ -28,9 +28,7 @@
 				</div>
 				<div>
 					<ul class="">
-						<li>8 productos</li>
-						<li>200 seguidores</li>
-						<li>300 comentarios</li>
+						<li><%= user.camisetas.length %> productos</li>
 					</ul>
 				</div>
 			</div>
@@ -53,7 +51,7 @@
 								<img src="" alt="cafetera moulinex">
 							</figure>
 							<article class="product-box_data">
-								<h2><%= usuario.camisetas.nombreProducto%></h2>
+								<h2><%= user.camisetas.nombreProducto%></h2>
 								<p></p>
 							</article>
 						</a>

@@ -26,10 +26,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 /*session*/
 
 app.use(session({
-  secret: 'mensaje', 
-  resave: false, 
-  saveUninitialized: true
-}));
+  secret: "myapp",
+  resave: false,
+  saveUninitialized: true 
+})); 
 
 app.use(function(req, res, next) {
   if (req.session.user != undefined) {
@@ -38,6 +38,25 @@ app.use(function(req, res, next) {
   return next();
 }
 );
+
+app.use(function(req, res, next) {
+  
+  if (req.cookies.userId != undefined && req.session.user == undefined) {
+    let idUsuario = req.cookies.userId; /*  6 */
+
+    db.User.findByPk(idUsuario)
+    .then((result) => {
+      req.session.user = result;
+      res.locals.user = result;
+      return next();
+    }).catch((err) => {
+      return console.log(err);
+    });
+    /* buscar el id en la db */
+  } else {
+    return next();
+  }
+})
 
 
 

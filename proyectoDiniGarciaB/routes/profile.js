@@ -16,6 +16,10 @@ router.post('/register', controller.store);
 
 /*login*/
 router.get('/login', controller.login);
+router.post('/login', controller.loginUsuario)
+
+/*logout*/
+router.post('/logout', controller.logout);
 
 
 module.exports = router  

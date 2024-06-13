@@ -1,5 +1,6 @@
 const db = require('../database/models/index');
-const datos = require('../database/models/index')
+const datos = require('../database/models/index');
+
 
 const controller = {
   products: function (req, res) {
@@ -27,14 +28,18 @@ const controller = {
   },
 
   add: function (req, res) {
-    res.render('product-add', { datos: datos })
+    if (req.session.user == undefined) {
+      res.redirect('/users/login')
+    } else {
+      res.render('product-add')
+      res.render('product-add', { datos: datos })
+    }
   },
-
   showOne: (req, res) => {
     let qs = req.query.search;
 
     let filtrado = {
-      where: [{ nombreProducto : qs }]
+      where: [{ nombreProducto: qs }]
     }
 
     datos.Producto.findOne(filtrado)
@@ -46,22 +51,22 @@ const controller = {
       });
   },
 
-  store : function(req,res){
+  store: function (req, res) {
     let form = req.body
 
     let product = {
-      idUsuario : 1, //req.session.user.id,
-      fotoProducto : form.fotoProducto,
-      nombreProducto : form.nombreProducto,
-      descripcion : form.descripcion
+      idUsuario: req.session.id,
+      fotoProducto: form.fotoProducto,
+      nombreProducto: form.nombreProducto,
+      descripcion: form.descripcion
     }
 
     db.Producto.create(product)
-    .then((result) => {
+      .then((result) => {
         return res.redirect("/")
-    }).catch((err) => {
+      }).catch((err) => {
         return console.log(err);
-    });
+      });
   }
 
 };

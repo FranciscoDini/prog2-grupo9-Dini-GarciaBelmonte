@@ -1,5 +1,5 @@
 const { Association } = require('sequelize');
-const datos = require('../database/models')
+const datos = require('../database/models');
 
 const controller = {
   index: function (req, res) {
