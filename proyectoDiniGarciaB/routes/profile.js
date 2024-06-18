@@ -12,7 +12,7 @@ const controller = require('../controllers/profileController')
 /* profile */
 router.get('/id/:id', controller.profile);
 
-router.get('/id/:id', controller.productProfile);
+//router.get('/id/:id', controller.productProfile);
 
 /* profile edit */
 router.get('/edit', controller.edit);
