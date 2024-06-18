@@ -13,7 +13,7 @@ const controller = {
     }
     datos.Producto.findByPk(idCami, filtro)
       .then(function (results) {
-        //return res.render('product',{ datos : results})//
+        //return res.render('product',{ datos : results})
 
         return res.send(results)
       })

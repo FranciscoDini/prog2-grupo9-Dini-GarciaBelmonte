@@ -12,6 +12,8 @@ const controller = require('../controllers/profileController')
 /* profile */
 router.get('/id/:id', controller.profile);
 
+router.get('/id/:id', controller.productProfile);
+
 /* profile edit */
 router.get('/edit', controller.edit);
 
@@ -21,7 +23,7 @@ router.post('/register', validations, controller.store);
 
 /*login*/
 router.get('/login', controller.login);
-router.post('/login', controller.loginUsuario)
+router.post('/login', controller.loginUsuario);
 
 /*logout*/
 router.post('/logout', controller.logout);
