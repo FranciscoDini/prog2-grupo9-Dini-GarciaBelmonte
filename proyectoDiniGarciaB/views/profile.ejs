@@ -44,16 +44,16 @@
 				<h2 class="products-title">Mis productos</h2>
 			</div>
 			<!-- Show mis productos -->
-			<% for(let i = 0; i < 8 ; i++) { %>
+			<% for(let i = 0; i < user.camisetas.length ; i++) { %>
 				<div class="col-12 col-sm-6 col-lg-3">
 					<section class="product-box">
-						<a href="/products">
+						<a href="/products/<%= user.camisetas[i].idUsuario %>">
 							<figure class="product-box_image">
-								<img src="" alt="cafetera moulinex">
+								<img src="/images/products/<%= user.camisetas[i].fotoProducto %>" alt="prod">
 							</figure>
 							<article class="product-box_data">
-								<h2><%= user.camisetas.nombreProducto%></h2>
-								<p></p>
+								<h2><%= user.camisetas[i].nombreProducto%></h2>
+								<p><%= user.camisetas[i].descripcion%></p>
 							</article>
 						</a>
 					</section>

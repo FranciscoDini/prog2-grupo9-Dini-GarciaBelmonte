@@ -70,7 +70,7 @@ const controller = {
                     }
                     return res.redirect("/");
                 } else {
-                    return res.send("La contraseña es incorrecta");
+                    return res.send("La contraseña es incorrecta, ingrese nuevamente");
                 }
 
             }).catch((err) => {
@@ -82,7 +82,7 @@ const controller = {
 
     store: (req, res) => {
         let errores = validationResult(req)
-        return res.send(errores)
+        //return res.send(errores)
         if (errores.isEmpty()) {
             let form = req.body;
 
