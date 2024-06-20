@@ -110,6 +110,15 @@ const controller = {
   delete: function (req, res) {
     let idEliminar = req.body.id
 
+    /*eliminar comentarios asociados al prod */
+    let filtroComments = {
+      where : [{idProducto : idEliminar}]
+    }
+
+    datos.Comentario.destroy(filtroComments)
+
+    /*eliminar producto */
+
     let filtro = {
       where: { id: idEliminar }
     };
