@@ -8,14 +8,15 @@ const controller = {
     let filtro = {
       include: [
         { association: "duenio" },
-        { association: "comentarios" }
+        { association: "comentarios",
+          include : [{association : 'comentador'}]
+         }
       ]
     }
     datos.Producto.findByPk(id, filtro)
       .then(function (results) {
-        //return res.render('product',{ datos : results})
-
-        return res.send(results)
+        //return res.send(results)
+        return res.render('product', { product: results })
       })
       .catch(function (error) {
         return console.log(error);;
@@ -41,7 +42,7 @@ const controller = {
 
     datos.Producto.findByPk(id)
       .then((result) => {
-        
+
         return res.render('product-edit', { product: result })
       })
       .catch((result) => {
@@ -95,16 +96,30 @@ const controller = {
 
 
     let filtro = {
-      where : [{id : form.id }]
+      where: [{ id: form.id }]
     };
 
     datos.Producto.update(form, filtro)
-    .then((result) => {
-      return res.redirect('/products/id/' + form.id);
-    }).catch((err) => {
-      return console.log(err);
-    });
+      .then((result) => {
+        return res.redirect('/products/id/' + form.id);
+      }).catch((err) => {
+        return console.log(err);
+      });
+  },
 
+  delete: function (req, res) {
+    let idEliminar = req.body.id
+
+    let filtro = {
+      where: [{ id: idEliminar }]
+    };
+
+    datos.Producto.destroy(filtro)
+    .then((result) => {
+      return res.redirect('/')
+    }).catch((err) => {
+      return console.log(err)
+    });
 
   }
 
