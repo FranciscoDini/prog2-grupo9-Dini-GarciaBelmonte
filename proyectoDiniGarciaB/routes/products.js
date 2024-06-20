@@ -10,13 +10,17 @@ router.get('/id/:id', controller.products);
 
 /* add */
 
-router.get('/add', controller.add);
+router.get('/add', controller.showFormCreate);
 router.post('/add', controller.store);
+
+/* edit */
+router.get('/edit/id/:id', controller.showFormUpdate)
+router.post('/update', controller.update)
 
 /* search */
 // router.get('/search-results', controller.search);
 
-// router.get('/register', controller.showFormCreate);
+
 router.get('/search-results', controller.showOne);
 
 

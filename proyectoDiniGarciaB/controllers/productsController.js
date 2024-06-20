@@ -4,14 +4,14 @@ const op = datos.Sequelize.Op
 
 const controller = {
   products: function (req, res) {
-    let idCami = req.params.id;
+    let id = req.params.id;
     let filtro = {
       include: [
         { association: "duenio" },
         { association: "comentarios" }
       ]
     }
-    datos.Producto.findByPk(idCami, filtro)
+    datos.Producto.findByPk(id, filtro)
       .then(function (results) {
         //return res.render('product',{ datos : results})
 
@@ -27,7 +27,7 @@ const controller = {
     res.render('search-results', { datos: datos })
   },
 
-  add: function (req, res) {
+  showFormCreate: function (req, res) {
     if (req.session.user == undefined) {
       res.redirect('/profile/login')
     } else {
@@ -36,32 +36,37 @@ const controller = {
     }
   },
 
-  /*showFormCreate: function (req, res) {
+  showFormUpdate: function (req, res) {
+    let id = req.params.id;
 
-    if (req.session.user == undefined) {
-        return res.redirect("/profile/login")
-    } else {
-      return res.render("register");
-    }
-  },*/
+    datos.Producto.findByPk(id)
+      .then((result) => {
+        
+        return res.render('product-edit', { product: result })
+      })
+      .catch((result) => {
+        return console.log(err);
+      })
+  },
+
 
   showOne: (req, res) => {
     let datosProducto = req.query.search;
 
     let filtro = {
-      where: {[op.or]: [{nombreProducto: {[op.like]: "%" + datosProducto + "%"}},{descripcion: {[op.like]: "%" + datosProducto + "%"}}]},
-      include : [
-        {association : "duenio"},
-        {association : "comentarios"}
+      where: { [op.or]: [{ nombreProducto: { [op.like]: "%" + datosProducto + "%" } }, { descripcion: { [op.like]: "%" + datosProducto + "%" } }] },
+      include: [
+        { association: "duenio" },
+        { association: "comentarios" }
       ],
-      order : [["createdAt", "DESC"]],
+      order: [["createdAt", "DESC"]],
     }
-    
+
 
     datos.Producto.findAll(filtro)
       .then(function (result) {
         //return res.send(result);
-         return res.render('search-results', { datos: result })
+        return res.render('search-results', { datos: result })
       }).catch(function (error) {
         return console.log(error);;
       });
@@ -83,6 +88,24 @@ const controller = {
       }).catch((err) => {
         return console.log(err);
       });
+  },
+
+  update: function (req, res) {
+    let form = req.body;
+
+
+    let filtro = {
+      where : [{id : form.id }]
+    };
+
+    datos.Producto.update(form, filtro)
+    .then((result) => {
+      return res.redirect('/products/id/' + form.id);
+    }).catch((err) => {
+      return console.log(err);
+    });
+
+
   }
 
 };
