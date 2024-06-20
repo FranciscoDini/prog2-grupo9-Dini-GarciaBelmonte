@@ -77,7 +77,7 @@ const controller = {
     let form = req.body
 
     let product = {
-      idUsuario: req.session.id,
+      idUsuario: req.session.user.id,
       fotoProducto: form.fotoProducto,
       nombreProducto: form.nombreProducto,
       descripcion: form.descripcion
@@ -111,7 +111,7 @@ const controller = {
     let idEliminar = req.body.id
 
     let filtro = {
-      where: [{ id: idEliminar }]
+      where: { id: idEliminar }
     };
 
     datos.Producto.destroy(filtro)
