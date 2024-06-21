@@ -32,7 +32,7 @@
 									<div class="row">
 
 										<article class="col-12 col-lg-8 product-detail-info">
-											<img src="<%= product.fotoProducto %>" alt="producto"
+											<img src="/images/products/<%= product.fotoProducto %>" alt="producto"
 												class="product-detail-img">
 											<p class="product-detail-description">
 												<%= product.descripcion %>
@@ -44,7 +44,7 @@
 													<% for (let i=0; i < comentarios.length; i++) {%>
 
 														<article>
-															<img src="<%= product.comentarios[i].comentador.fotoPerfil %>"
+															<img src="/images/users/<%= product.comentarios[i].comentador.fotoPerfil %>"
 																alt="foto usuario">
 															<div class="data">
 																<p class="user">
