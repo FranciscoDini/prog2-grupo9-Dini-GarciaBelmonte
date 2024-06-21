@@ -18,24 +18,26 @@
 			<h2 class="products-title">Editar mi perfil</h2>
 			
 			<!-- Show the "ultimos" products -->
-			<form action="/profile" method="GET">
+			<form action="/profile/edit" method="POST">
+				<input type="hidden" name="id" value="<%= usuario.id %>">
+
 				<label for="email">Email:</label><br>
-				<input type="email" id="email" name="email" value="<%= datos.usuario.email %>"required><br>
+				<input type="email" id="email" name="email" value="<%= usuario.mail %>"required><br>
 				
 				<label for="usuario">Usuario:</label><br>
-				<input type="text" id="usuario" name="usuario" value="<%= datos.usuario.nombre %>"required><br>
+				<input type="text" id="usuario" name="usuario" value="<%= usuario.nombreUsuario %>"required><br>
 				
-				<label for="contrasenia">Contraseña:</label><br>
-				<input type="password" id="contrasenia" name="contrasenia" value="<%= datos.usuario.contrasenia %>"required><br>
-				
+		<!--	<label for="contrasenia">Contraseña:</label><br> 
+				<input type="password" id="contrasenia" name="contrasenia" value="<%= usuario.contrasenia %>"required><br>
+				-->	
 				<label for="fecha_nacimiento">Fecha de Nacimiento:</label><br>
-				<input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<%= datos.usuario.fechaNacimiento %>"required><br>
+				<input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<%=usuario.fechaNacimiento %>"required><br>
 				
 				<label for="nro_documento">Nro. de Documento:</label><br>
-				<input type="number" id="nro_documento" name="nro_documento" value="<%= datos.usuario.nroDoc %>"required><br>
+				<input type="number" id="nro_documento" name="nro_documento" value="<%= usuario.dni %>"required><br>
 				
 				<label for="foto_perfil">Foto de Perfil:</label><br>
-				<input type="text" id="foto_perfil" name="foto_perfil"><br>
+				<input type="text" id="foto_perfil" name="foto_perfil" value="<%= usuario.fotoPerfil %>"><br>	
 				
 				<input type="submit" value="Confirmar">
 			</form>

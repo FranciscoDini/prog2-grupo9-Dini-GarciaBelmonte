@@ -1,6 +1,6 @@
 const datos = require('../database/models/index')
-const db = require('../database/models')
-const productos = db.Producto
+//const db = require('../database/models')
+//const productos = db.Producto
 const bcrypt = require("bcryptjs")
 const { validationResult } = require("express-validator")
 
@@ -24,27 +24,28 @@ const controller = {
                 return console.log(err);
             })
     },
-    // productProfile: function (req, res) {
-    //     let idCami = req.params.id;
-    //     let filtro = {
-    //         include: [
-    //             { association: "duenio" },
-    //             { association: "comentarios" }
-    //         ]
-    //     }
-    //     datos.Producto.findByPk(idCami, filtro)
-    //         .then(function (results) {
-    //             //return res.render('product',{ datos : results})
+    /*productProfile: function (req, res) {
+         let idCami = req.params.id;
+         let filtro = {
+             include: [
+                 { association: "duenio" },
+                 { association: "comentarios" }
+             ]
+         }
+         datos.Producto.findByPk(idCami, filtro)
+             .then(function (results) {
+                 //return res.render('product',{ datos : results})
 
-    //             return res.send(results)
-    //         })
-    //         .catch(function (error) {
-    //             return console.log(error);;
-    //         })
-    // },
+                 return res.send(results)
+             })
+             .catch(function (error) {
+                 return console.log(error);;
+             })
+     },*/
 
     edit: function (req, res) {
-        res.render('profile-edit', { datos: datos })
+        //return res.send(req.session.user)
+        return res.render('profile-edit', { usuario: req.session.user })
     },
     register: (req, res) => {
         if (req.session.user != undefined) {
@@ -98,7 +99,6 @@ const controller = {
             });
     },
 
-
     store: (req, res) => {
         let errores = validationResult(req)
         //return res.send(errores)
@@ -114,7 +114,7 @@ const controller = {
                 fotoPerfil: form.fotoPerfil
             };
 
-            db.Usuario.create(user)
+            datos.Usuario.create(user)
                 .then((result) => {
                     return res.redirect("/profile/login");
                 }).catch((err) => {
@@ -134,6 +134,34 @@ const controller = {
         res.clearCookie("userId")
         return res.redirect("/")
     },
+
+    editProfile: function (req, res) {
+        
+        let form = req.body
+
+        let datosEditados = {
+            nombreUsuario: form.usuario,
+            mail: form.email,
+            //contrasenia : bcrypt.hashSync(form.contrasenia, 10),
+            fechaNacimiento: form.fecha_nacimiento,
+            dni: form.nro_documento,
+            fotoPerfil: form.foto_perfil
+        }
+
+        
+
+        let filtro = {
+            where: [{ id: form.id }]
+        }
+
+        datos.Usuario.update(datosEditados, filtro)
+            .then((result) => {
+                return res.redirect('/profile/id/' + form.id)
+            }).catch((err) => {
+                return console.log(err)
+            });
+
+    }
 };
 
 
