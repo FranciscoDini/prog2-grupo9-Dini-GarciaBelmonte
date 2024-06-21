@@ -5,8 +5,10 @@ const { body } = require('express-validator');
 const controller = require('../controllers/productsController')
 
 /* detail products */
-
 router.get('/id/:id', controller.products);
+
+/* comment */
+router.post('/comment', controller.comment)
 
 /* add */
 router.get('/add', controller.showFormCreate);
@@ -18,6 +20,9 @@ router.post('/update', controller.update)
 
 /* destroy */
 router.post('/delete', controller.delete)
+
+/* comment */
+router.post('/comment', controller.comment)
 
 /* search */
 router.get('/search-results', controller.showOne);

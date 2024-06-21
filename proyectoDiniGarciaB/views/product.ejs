@@ -53,7 +53,7 @@
 																			<%= product.comentarios[i].comentador.nombreUsuario
 																				%>
 																		</a></strong>
-																	<%= comentarios[i].texto %>
+																	<%= product.comentarios[i].texto %>
 																</p>
 															</div>
 														</article>
@@ -61,9 +61,9 @@
 														<%} %>
 
 											</section>
-											<form class="form" action="/products/id/<%= product.id %>" method="GET">
-												<input class="form-input" type="text" value=""
-													placeholder="Agregar comentario">
+											<form class="form" action="/products/comment" method="POST">
+												<input type="hidden" name="idProducto" value="<%= product.id %>">
+												<input class="form-input" type="text" name="comentario" placeholder="Agregar comentario">
 												<button type="submit" class="buy-now-button">AGREGAR COMENTARIO</button>
 											</form>
 											<hr>

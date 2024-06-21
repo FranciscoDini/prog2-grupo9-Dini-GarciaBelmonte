@@ -8,9 +8,10 @@ const controller = {
     let filtro = {
       include: [
         { association: "duenio" },
-        { association: "comentarios",
-          include : [{association : 'comentador'}]
-         }
+        {
+          association: "comentarios",
+          include: [{ association: 'comentador' }]
+        }
       ]
     }
     datos.Producto.findByPk(id, filtro)
@@ -49,7 +50,6 @@ const controller = {
         return console.log(err);
       })
   },
-
 
   showOne: (req, res) => {
     let datosProducto = req.query.search;
@@ -112,7 +112,7 @@ const controller = {
 
     /*eliminar comentarios asociados al prod */
     let filtroComments = {
-      where : [{idProducto : idEliminar}]
+      where: [{ idProducto: idEliminar }]
     }
 
     datos.Comentario.destroy(filtroComments)
@@ -124,11 +124,36 @@ const controller = {
     };
 
     datos.Producto.destroy(filtro)
-    .then((result) => {
-      return res.redirect('/')
-    }).catch((err) => {
-      return console.log(err)
-    });
+      .then((result) => {
+        return res.redirect('/')
+      }).catch((err) => {
+        return console.log(err)
+      });
+
+  },
+
+  comment: function (req, res) {
+
+    if (req.session.user == undefined) {
+      return res.redirect('/profile/login')
+    } else {
+
+      let form = req.body
+
+      let comentario = {
+        idUsuario: req.session.user.id,
+        idProducto: form.idProducto,
+        texto: form.comentario
+      }
+
+      datos.Comentario.create(comentario)
+        .then((result) => {
+          return res.redirect("/products/id/" + form.idProducto)
+        }).catch((err) => {
+          return console.log(err);
+        });
+
+    }
 
   }
 
