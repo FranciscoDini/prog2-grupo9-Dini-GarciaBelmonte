@@ -17,7 +17,7 @@ const controller = {
     datos.Producto.findByPk(id, filtro)
       .then(function (results) {
         //return res.send(results)
-        return res.render('product', { product: results })
+        return res.render('product', { product: results, userSession: req.session.user })
       })
       .catch(function (error) {
         return console.log(error);;

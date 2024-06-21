@@ -18,21 +18,32 @@
 									<h2 class="products-title">
 										<%= product.nombreProducto %>
 									</h2>
-									<p class="product-detail-description">
-										<a href="/products/edit/id/<%= product.id %>">Editar</a>
-									</p>
 
-									<form action="/products/delete" method="POST">
-										<input type="hidden" name="id" value="<%= product.id %>">
-										<button type="submit">Eliminar</button>
-									</form>
+									<% if (userSession && userSession.id === product.duenio.id) { %>						
+										<p class="edit">
+											<a href="/products/edit/id/<%= product.id %>">EDITAR</a>
+										</p>
+	
+										<form action="/products/delete" method="POST">
+											<input type="hidden" name="id" value="<%= product.id %>">
+											<button type="submit" class="eliminar">Eliminar</button>
+										</form>
+										<% } else{ %>
+											<a href="/profile/id/<%= product.duenio.id %>">
+											<h2 class="pubPor">
+											Publicado por: <%= product.duenio.nombreUsuario%>
+											</h2>
+											</a>
+									<%	} %>
+
+									
 
 								</div>
 								<div class="product-detail">
 									<div class="row">
 
 										<article class="col-12 col-lg-8 product-detail-info">
-											<img src="/images/products/<%= product.fotoProducto %>" alt="producto"
+											<img src="<%= product.fotoProducto %>" alt="producto"
 												class="product-detail-img">
 											<p class="product-detail-description">
 												<%= product.descripcion %>
@@ -44,12 +55,12 @@
 													<% for (let i=0; i < comentarios.length; i++) {%>
 
 														<article>
-															<img src="/images/users/<%= product.comentarios[i].comentador.fotoPerfil %>"
+															<img src="<%= product.comentarios[i].comentador.fotoPerfil %>"
 																alt="foto usuario">
 															<div class="data">
 																<p class="user">
 																	<strong><a
-																			href="/profile/id/<%= product.comentarios[i].comentador.nombreUsuario %>">
+																			href="/profile/id/<%= product.comentarios[i].comentador.id %>">
 																			<%= product.comentarios[i].comentador.nombreUsuario
 																				%>
 																		</a></strong>

@@ -18,7 +18,10 @@ const controller = {
         datos.Usuario.findByPk(id, criterio)
             .then((usuario) => {
                 //return res.send(usuario)
-                return res.render('profile', { user: usuario })
+                return res.render('profile', {
+                    usuario: usuario,
+                    userSession: req.session.user
+                })
 
             }).catch(function (err) {
                 return console.log(err);
@@ -136,7 +139,7 @@ const controller = {
     },
 
     editProfile: function (req, res) {
-        
+
         let form = req.body
 
         let datosEditados = {
@@ -148,7 +151,7 @@ const controller = {
             fotoPerfil: form.foto_perfil
         }
 
-        
+
 
         let filtro = {
             where: [{ id: form.id }]
