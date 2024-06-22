@@ -27,24 +27,6 @@ const controller = {
                 return console.log(err);
             })
     },
-    /*productProfile: function (req, res) {
-         let idCami = req.params.id;
-         let filtro = {
-             include: [
-                 { association: "duenio" },
-                 { association: "comentarios" }
-             ]
-         }
-         datos.Producto.findByPk(idCami, filtro)
-             .then(function (results) {
-                 //return res.render('product',{ datos : results})
-
-                 return res.send(results)
-             })
-             .catch(function (error) {
-                 return console.log(error);;
-             })
-     },*/
 
     edit: function (req, res) {
         //return res.send(req.session.user)

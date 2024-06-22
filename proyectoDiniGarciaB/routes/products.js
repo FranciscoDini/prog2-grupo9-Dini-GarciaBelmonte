@@ -5,7 +5,8 @@ const {body} = require('express-validator')
 const validations = [
   body('fotoProducto').notEmpty().withMessage('Debes agregar una foto del producto'),
   body('nombreProducto').notEmpty().withMessage('Debes agregar un nombre al producto'),
-  body('descripcion').notEmpty().withMessage('Debes agregar una descripcion al producto')
+  body('descripcion').notEmpty().withMessage('Debes agregar una descripcion al producto'),
+  body('texto').notEmpty().withMessage('Debes agregar un comentario al producto'),
 ]
 
 const controller = require('../controllers/productsController')
@@ -17,7 +18,7 @@ router.get('/', controller.showAll)
 router.get('/id/:id', controller.productDetail);
 
 /* comment */
-router.post('/comment', controller.comment)
+router.post('/comment', validations, controller.comment)
 
 /* add */
 router.get('/add', controller.showFormCreate);
