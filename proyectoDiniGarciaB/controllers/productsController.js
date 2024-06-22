@@ -1,5 +1,7 @@
 const datos = require('../database/models/index');
-const op = datos.Sequelize.Op
+const op = datos.Sequelize.Op;
+
+const {validationResult} = require('express-validator');
 
 
 const controller = {
@@ -74,21 +76,28 @@ const controller = {
   },
 
   store: function (req, res) {
-    let form = req.body
+    let errors = validationResult(req);
 
-    let product = {
-      idUsuario: req.session.user.id,
-      fotoProducto: form.fotoProducto,
-      nombreProducto: form.nombreProducto,
-      descripcion: form.descripcion
-    }
+      if (errors.isEmpty()) {
+        let form = req.body
 
-    datos.Producto.create(product)
-      .then((result) => {
-        return res.redirect("/")
-      }).catch((err) => {
-        return console.log(err);
-      });
+
+        let product = {
+          idUsuario: req.session.user.id,
+          fotoProducto: form.fotoProducto,
+          nombreProducto: form.nombreProducto,
+          descripcion: form.descripcion
+        }
+    
+        datos.Producto.create(product)
+          .then((result) => {
+            return res.redirect("/")
+          }).catch((err) => {
+            return console.log(err);
+          });
+      } else{
+        return res.render('product-add', {errors : errors.array(), old : req.body})
+      }
   },
 
   update: function (req, res) {
