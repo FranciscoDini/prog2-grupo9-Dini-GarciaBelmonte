@@ -1,11 +1,25 @@
 const datos = require('../database/models/index');
 const op = datos.Sequelize.Op;
 
-const {validationResult} = require('express-validator');
+const { validationResult } = require('express-validator');
 
 
 const controller = {
-  products: function (req, res) {
+  showAll : function(req,res){
+      datos.Producto.findAll({
+        include: [{association: "duenio"}],
+        order: [["createdAt", "DESC"]],
+     
+      })
+      .then(function (results) {
+        return res.render('catalogo', {datos : results})
+      })
+      .catch(function (error) {
+        return console.log(error);;
+      })
+  },
+
+  productDetail: function (req, res) {
     let id = req.params.id;
     let filtro = {
       include: [
@@ -45,8 +59,11 @@ const controller = {
 
     datos.Producto.findByPk(id)
       .then((result) => {
-
-        return res.render('product-edit', { product: result })
+        if (req.session.user && req.session.user.id === result.idUsuario) {
+          return res.render('product-edit', { product: result })
+        } else {
+          return res.redirect('/')
+        }
       })
       .catch((result) => {
         return console.log(err);
@@ -78,42 +95,47 @@ const controller = {
   store: function (req, res) {
     let errors = validationResult(req);
 
-      if (errors.isEmpty()) {
-        let form = req.body
+    if (errors.isEmpty()) {
+      let form = req.body
 
 
-        let product = {
-          idUsuario: req.session.user.id,
-          fotoProducto: form.fotoProducto,
-          nombreProducto: form.nombreProducto,
-          descripcion: form.descripcion
-        }
-    
-        datos.Producto.create(product)
-          .then((result) => {
-            return res.redirect("/")
-          }).catch((err) => {
-            return console.log(err);
-          });
-      } else{
-        return res.render('product-add', {errors : errors.array(), old : req.body})
+      let product = {
+        idUsuario: req.session.user.id,
+        fotoProducto: form.fotoProducto,
+        nombreProducto: form.nombreProducto,
+        descripcion: form.descripcion
       }
+
+      datos.Producto.create(product)
+        .then((result) => {
+          return res.redirect("/")
+        }).catch((err) => {
+          return console.log(err);
+        });
+    } else {
+      return res.render('product-add', { errors: errors.array(), old: req.body })
+    }
   },
 
   update: function (req, res) {
-    let form = req.body;
+    let errors = validationResult(req);
 
+    if (errors.isEmpty()) {
+      let form = req.body;
 
-    let filtro = {
-      where: [{ id: form.id }]
-    };
+      let filtro = {
+        where: { id: form.id }
+      };
 
-    datos.Producto.update(form, filtro)
-      .then((result) => {
-        return res.redirect('/products/id/' + form.id);
-      }).catch((err) => {
-        return console.log(err);
-      });
+      datos.Producto.update(form, filtro)
+        .then((result) => {
+          return res.redirect('/products/id/' + form.id);
+        }).catch((err) => {
+          return console.log(err);
+        });
+    } else {
+      return res.render('product-edit', { errors: errors.array(), old: req.body, product: { id: req.body.id } });
+    }
   },
 
   delete: function (req, res) {

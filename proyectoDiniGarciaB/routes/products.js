@@ -10,8 +10,11 @@ const validations = [
 
 const controller = require('../controllers/productsController')
 
+/* mostrar todos los productos */
+router.get('/', controller.showAll)
+
 /* detail products */
-router.get('/id/:id', controller.products);
+router.get('/id/:id', controller.productDetail);
 
 /* comment */
 router.post('/comment', controller.comment)
