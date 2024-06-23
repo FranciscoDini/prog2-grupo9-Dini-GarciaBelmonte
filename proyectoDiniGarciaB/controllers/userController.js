@@ -31,7 +31,7 @@ const controller = {
 
     edit: function (req, res) {
         if(req.session.user == undefined){
-            return res.redirect('/profile/register')
+            return res.redirect('/user/register')
         } else{
             return res.render('profile-edit', { usuario: req.session.user })
         }
@@ -107,7 +107,7 @@ const controller = {
 
             datos.Usuario.create(user)
                 .then((result) => {
-                    return res.redirect("/profile/login");
+                    return res.redirect("/user/login");
                 }).catch((err) => {
                     return console.log(err);
                 });
@@ -156,7 +156,7 @@ const controller = {
 
         datos.Usuario.update(datosEditados, filtro)
             .then((result) => {
-                return res.redirect('/profile/id/' + form.id)
+                return res.redirect('/user/id/' + form.id)
             }).catch((err) => {
                 return console.log(err)
             });

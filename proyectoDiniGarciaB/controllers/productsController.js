@@ -47,7 +47,7 @@ const controller = {
 
   showFormCreate: function (req, res) {
     if (req.session.user == undefined) {
-      res.redirect('/profile/login')
+      res.redirect('/user/login')
     } else {
       res.render('product-add')
       res.render('product-add', { datos: datos })
@@ -166,7 +166,7 @@ const controller = {
   comment: function (req, res) {
 
     if (req.session.user == undefined) { /* usuario no logueado */
-      return res.redirect('/profile/login')
+      return res.redirect('/user/login')
     } else { /* usuario logueado */
 
       let errors = validationResult(req)
