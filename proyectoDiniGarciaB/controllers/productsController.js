@@ -5,14 +5,14 @@ const { validationResult } = require('express-validator');
 
 
 const controller = {
-  showAll : function(req,res){
-      datos.Producto.findAll({
-        include: [{association: "duenio"}],
-        order: [["createdAt", "DESC"]],
-     
-      })
+  showAll: function (req, res) {
+    datos.Producto.findAll({
+      include: [{ association: "duenio" }],
+      order: [["createdAt", "DESC"]],
+
+    })
       .then(function (results) {
-        return res.render('catalogo', {datos : results})
+        return res.render('catalogo', { datos: results })
       })
       .catch(function (error) {
         return console.log(error);;
@@ -164,25 +164,49 @@ const controller = {
   },
 
   comment: function (req, res) {
-    
-    if (req.session.user == undefined) {
+
+    if (req.session.user == undefined) { /* usuario no logueado */
       return res.redirect('/profile/login')
-    } else {
-      let form = req.body
+    } else { /* usuario logueado */
 
-      let comentario = {
-        idUsuario: req.session.user.id,
-        idProducto: form.idProducto,
-        texto: form.comentario
+      let errors = validationResult(req)
+
+      if (errors.isEmpty()) { /* si no hay errores de validacion */
+        let form = req.body
+        let comentario = {
+          idUsuario: req.session.user.id,
+          idProducto: form.idProducto,
+          texto: form.comentario
+        }
+
+        datos.Comentario.create(comentario)
+          .then((result) => {
+            return res.redirect("/products/id/" + form.idProducto)
+          }).catch((err) => {
+            return console.log(err);
+          });
+
+      } else { /* si hay errores de validación */
+        //return res.send(errors)
+        let id = req.body.idProducto;
+        let filtro = {
+          include: [
+            { association: "duenio" },
+            {
+              association: "comentarios",
+              include: [{ association: 'comentador' }]
+            }
+          ]
+        }
+        datos.Producto.findByPk(id, filtro)
+          .then(function (results) {
+            //return res.send(results)
+            return res.render('product', { product: results, userSession: req.session.user, errors : errors.array(), old : req.body })
+          })
+          .catch(function (error) {
+            return console.log(error);;
+          })
       }
-
-      datos.Comentario.create(comentario)
-        .then((result) => {
-          return res.redirect("/products/id/" + form.idProducto)
-        }).catch((err) => {
-          return console.log(err);
-        });
-
     }
 
   }

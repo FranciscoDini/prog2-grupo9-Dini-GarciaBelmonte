@@ -3,91 +3,93 @@
 <!-- Include Head -->
 <%- include('./partials/head') %>
 
-	<body>
-		<!-- Header -->
-		<% if (locals.user !=undefined) { %>
-			<%- include('./partials/headerLogueado') %>
-				<% } else { %>
-					<%- include('./partials/header') %>
-						<% } %>
-							<!-- /Header -->
+<body>
+  <!-- Header -->
+  <% if (locals.user != undefined) { %>
+    <%- include('./partials/headerLogueado') %>
+  <% } else { %>
+    <%- include('./partials/header') %>
+  <% } %>
+  <!-- /Header -->
 
-							<!-- product detail -->
-							<div class="container products-wrapper">
-								<div class="d-flex align-items-center">
-									<h2 class="products-title">
-										<%= product.nombreProducto %>
-									</h2>
+  <!-- product detail -->
+  <div class="container products-wrapper">
+    <div class="d-flex align-items-center">
+      <h2 class="products-title">
+        <%= product.nombreProducto %>
+      </h2>
 
-									<% if (userSession && userSession.id === product.duenio.id) { %>						
-										<p class="edit">
-											<a href="/products/edit/id/<%= product.id %>">EDITAR</a>
-										</p>
-	
-										<form action="/products/delete" method="POST">
-											<input type="hidden" name="id" value="<%= product.id %>">
-											<button type="submit" class="eliminar">Eliminar</button>
-										</form>
-										<% } else{ %>
-											<a href="/profile/id/<%= product.duenio.id %>">
-											<h2 class="pubPor">
-											Publicado por: <%= product.duenio.nombreUsuario%>
-											</h2>
-											</a>
-									<%	} %>
+      <% if (userSession && userSession.id === product.duenio.id) { %>
+        <p class="edit">
+          <a href="/products/edit/id/<%= product.id %>">EDITAR</a>
+        </p>
 
-									
+        <form action="/products/delete" method="POST">
+          <input type="hidden" name="id" value="<%= product.id %>">
+          <button type="submit" class="eliminar">Eliminar</button>
+        </form>
+      <% } else { %>
+        <a href="/profile/id/<%= product.duenio.id %>">
+          <h2 class="pubPor">
+            Publicado por: <%= product.duenio.nombreUsuario %>
+          </h2>
+        </a>
+      <% } %>
+    </div>
+    <div class="product-detail">
+      <div class="row">
+        <article class="col-12 col-lg-8 product-detail-info">
+          <img src="<%= product.fotoProducto %>" alt="producto" class="product-detail-img">
+          <p class="product-detail-description">
+            <%= product.descripcion %>
+          </p>
+        </article>
+        <div class="col-12 col-lg-4">
+          <section class="comments">
+            <% const comentarios = product.comentarios %>
+            <% for (let i = 0; i < comentarios.length; i++) { %>
+              <article>
+                <img src="<%= comentarios[i].comentador.fotoPerfil %>" alt="foto usuario">
+                <div class="data">
+                  <p class="user">
+                    <strong><a href="/profile/id/<%= comentarios[i].comentador.id %>">
+                        <%= comentarios[i].comentador.nombreUsuario %>
+                      </a></strong>
+                    <%= comentarios[i].texto %>
+                  </p>
+                </div>
+              </article>
+            <% } %>
+          </section>
 
-								</div>
-								<div class="product-detail">
-									<div class="row">
+          <% if (userSession) { %>
+            <form class="form" action="/products/comment" method="POST">
+              <input type="hidden" name="idProducto" value="<%= product.id %>">
+              <input class="form-input" type="text" name="comentario" placeholder="Agregar comentario">
+              <button type="submit" class="buy-now-button">AGREGAR COMENTARIO</button>
+            </form>
+            <hr>
+            <% if (locals.errors && errors.length > 0) { %>
+              <div class="divErrores">
+                <% for (let i = 0; i < errors.length; i++) { %>
+                  <p class="showError"><%= errors[i].msg %></p>
+                <% } %>
+              </div>
+            <% } %>
+          <% } else { %>
+            <div class="divErrores">
+              <p class="showError">Debes iniciar sesión para comentar</p>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /product detail -->
 
-										<article class="col-12 col-lg-8 product-detail-info">
-											<img src="<%= product.fotoProducto %>" alt="producto"
-												class="product-detail-img">
-											<p class="product-detail-description">
-												<%= product.descripcion %>
-											</p>
-										</article>
-										<div class="col-12 col-lg-4">
-											<section class="comments">
-												<% const comentarios=product.comentarios %>
-													<% for (let i=0; i < comentarios.length; i++) {%>
-
-														<article>
-															<img src="<%= product.comentarios[i].comentador.fotoPerfil %>"
-																alt="foto usuario">
-															<div class="data">
-																<p class="user">
-																	<strong><a
-																			href="/profile/id/<%= product.comentarios[i].comentador.id %>">
-																			<%= product.comentarios[i].comentador.nombreUsuario
-																				%>
-																		</a></strong>
-																	<%= product.comentarios[i].texto %>
-																</p>
-															</div>
-														</article>
-
-														<%} %>
-
-											</section>
-											<form class="form" action="/products/comment" method="POST">
-												<input type="hidden" name="idProducto" value="<%= product.id %>">
-												<input class="form-input" type="text" name="comentario" placeholder="Agregar comentario">
-												<button type="submit" class="buy-now-button">AGREGAR COMENTARIO</button>
-											</form>
-											<hr>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /product detail -->
-
-							<!-- footer -->
-							<%- include('./partials/footer') %>
-								<!-- /footer -->
-
-	</body>
+  <!-- footer -->
+  <%- include('./partials/footer') %>
+  <!-- /footer -->
+</body>
 
 </html>
