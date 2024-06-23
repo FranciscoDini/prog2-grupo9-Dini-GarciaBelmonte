@@ -6,7 +6,6 @@ const validations = [
   body('fotoProducto').notEmpty().withMessage('Debes agregar una foto del producto').bail(),
   body('nombreProducto').notEmpty().withMessage('Debes agregar un nombre al producto').bail(),
   body('descripcion').notEmpty().withMessage('Debes agregar una descripcion al producto').bail(),
-  body('texto').notEmpty().withMessage('Debes agregar un comentario al producto').bail(),
 ];
 
 const commentValidations = [

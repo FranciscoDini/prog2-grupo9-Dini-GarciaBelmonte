@@ -1,7 +1,8 @@
 const datos = require('../database/models/index')
 //const db = require('../database/models')
 //const productos = db.Producto
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
+const { render } = require('ejs');
 const { validationResult } = require("express-validator")
 
 
@@ -64,7 +65,12 @@ const controller = {
             .then((results) => {
 
                 if (results === null) {
-                    return res.send("No existe un usuario con el mail " + formulario.mail);
+                    return res.render('login', {
+                        errores: {
+                            mail: { msg: "No existe un usuario con el mail " + formulario.mail }
+                        }
+                    });
+                    //return res.send("No existe un usuario con el mail " + formulario.mail);
                 }
 
                 let chequear = bcrypt.compareSync(formulario.contrasenia, results.contrasenia);
@@ -78,7 +84,12 @@ const controller = {
                     }
                     return res.redirect("/");
                 } else {
-                    return res.send("La contraseña es incorrecta, ingrese nuevamente");
+                    return res.render('login', {
+                        errores: {
+                            contrasenia: { msg: "La contraseña es incorrecta, ingrese nuevamente" }
+                        }
+                    });
+                    //return res.send("La contraseña es incorrecta, ingrese nuevamente");
                 }
 
             }).catch((err) => {
