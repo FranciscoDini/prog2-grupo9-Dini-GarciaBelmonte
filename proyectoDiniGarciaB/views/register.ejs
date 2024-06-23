@@ -20,25 +20,28 @@
 			<!-- Show the "ultimos" products -->
 			<form action="/profile/register" method="POST">
 				<label for="email">Email:</label><br>
-				<input type="email" id="email" name="email" required><br>
-				<% if (locals.errores && mensajeError.email) { %>
+				<input type="email" id="email" name="email" ><br>
+				<% if (locals.errores && errores.email) { %>
 					<p class="error"><%= errores.email.msg %></p>
 				<% } %>
 				
 				<label for="usuario">Usuario:</label><br>
-				<input type="text" id="usuario" name="usuario" required><br>
-				<% if (locals.errores && mensajeError.usuario) { %>
+				<input type="text" id="usuario" name="usuario" ><br>
+				<% if (locals.errores && errores.usuario) { %>
 					<p class="error"><%= errores.usuario.msg %></p>
 				<% } %>
 				
 				<label for="contrasenia">Contraseña:</label><br>
-				<input type="password" id="contrasenia" name="contrasenia" required><br>
+				<input type="password" id="contrasenia" name="contrasenia" ><br>
+				<% if (locals.errores && errores.contrasenia) { %>
+					<p class="error"><%= errores.contrasenia.msg %></p>
+				<% } %>
 				
 				<label for="fecha_nacimiento">Fecha de Nacimiento:</label><br>
-				<input type="date" id="fechaNacimiento" name="fechaNacimiento" required><br>
+				<input type="date" id="fechaNacimiento" name="fechaNacimiento" ><br>
 				
 				<label for="nro_documento">Nro. de Documento:</label><br>
-				<input type="number" id="nroDocumento" name="nroDocumento" required><br>
+				<input type="number" id="nroDocumento" name="nroDocumento" ><br>
 				
 				<label for="foto_perfil">Foto de Perfil:</label><br>
 				<input type="text" id="fotoPerfil" name="fotoPerfil"><br>

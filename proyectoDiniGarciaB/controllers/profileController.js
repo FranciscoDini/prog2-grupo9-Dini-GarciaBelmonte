@@ -86,7 +86,6 @@ const controller = {
 
     store: (req, res) => {
         let errores = validationResult(req)
-        //return res.send(errores)
         if (errores.isEmpty()) {
             let form = req.body;
 
@@ -108,7 +107,7 @@ const controller = {
 
         } else {
             return res.render("register", {
-                mensajeError: errores.mapped(),
+                errores : errores.mapped(),
                 old: req.body,
             })
         }
