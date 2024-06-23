@@ -18,17 +18,24 @@
 			<h2 class="products-title">Ingresar</h2>
 			
 			<!-- Show the "ultimos" products -->
-			<form action="/profile/login" method="POST">
-				<label for="usuario">Usuario (Email):</label><br>
-				<input type="email" id="mail" name="mail" ><br>
-				<% if (errores && errores.mail) { %>
-					<p class="error"><%= errores.mail.msg %></p>
+			<form action="/user/login" method="POST">
+				<% if(locals.old){ %>
+					<label for="usuario">Usuario (Email):</label><br>
+				<input type="text"  name="mail" value="<%= old.mail %>"><br>
+				<% if (locals.errorMail) { %>
+					<p class="error"><%= errorMail %></p>
 				<% } %>
+			<%	} else{ %>
+				<label for="usuario">Usuario (Email):</label><br>
+				<input type="text"  name="mail" ><br>
+				<% if (locals.errorMail) { %>
+					<p class="error"><%= errorMail %></p>
+				<% } }%>
 				
 				<label for="contrasenia">Contraseña:</label><br>
 				<input type="password" id="contrasenia" name="contrasenia" ><br>
-				<% if (errores && errores.contrasenia) { %>
-					<p class="error"><%= errores.contrasenia.msg %></p>
+				<% if (locals.errorContrasenia) { %>
+					<p class="error"><%= errorContrasenia %></p>
 				<% } %>
 				
 				<label for="recordarme">Recordarme:</label>

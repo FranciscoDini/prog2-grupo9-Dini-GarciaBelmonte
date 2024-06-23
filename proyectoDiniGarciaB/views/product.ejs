@@ -29,7 +29,7 @@
           <button type="submit" class="eliminar">Eliminar</button>
         </form>
       <% } else { %>
-        <a href="/profile/id/<%= product.duenio.id %>">
+        <a href="/user/id/<%= product.duenio.id %>">
           <h2 class="pubPor">
             Publicado por: <%= product.duenio.nombreUsuario %>
           </h2>
@@ -52,7 +52,7 @@
                 <img src="<%= comentarios[i].comentador.fotoPerfil %>" alt="foto usuario">
                 <div class="data">
                   <p class="user">
-                    <strong><a href="/profile/id/<%= comentarios[i].comentador.id %>">
+                    <strong><a href="/user/id/<%= comentarios[i].comentador.id %>">
                         <%= comentarios[i].comentador.nombreUsuario %>
                       </a></strong>
                     <%= comentarios[i].texto %>

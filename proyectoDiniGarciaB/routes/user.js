@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { body } = require('express-validator');
-const controller = require('../controllers/profileController');
+const controller = require('../controllers/userController');
 const db = require('../database/models');
 
 let validationsEdit = [

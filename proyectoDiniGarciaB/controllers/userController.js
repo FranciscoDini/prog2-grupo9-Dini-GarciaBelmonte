@@ -65,11 +65,7 @@ const controller = {
             .then((results) => {
 
                 if (results === null) {
-                    return res.render('login', {
-                        errores: {
-                            mail: { msg: "No existe un usuario con el mail " + formulario.mail }
-                        }
-                    });
+                    return res.render('login', { errorMail: "No existe un usuario con el mail " + formulario.mail});
                     //return res.send("No existe un usuario con el mail " + formulario.mail);
                 }
 
@@ -85,10 +81,7 @@ const controller = {
                     return res.redirect("/");
                 } else {
                     return res.render('login', {
-                        errores: {
-                            contrasenia: { msg: "La contraseña es incorrecta, ingrese nuevamente" }
-                        }
-                    });
+                        errorContrasenia: "La contraseña es incorrecta, ingrese nuevamente", old : req.body });
                     //return res.send("La contraseña es incorrecta, ingrese nuevamente");
                 }
 

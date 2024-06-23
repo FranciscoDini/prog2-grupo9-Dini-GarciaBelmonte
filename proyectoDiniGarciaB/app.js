@@ -7,7 +7,7 @@ const session = require('express-session');
 const db = require("./database/models");
 
 var indexRouter = require('./routes/index');
-var profileRouter = require('./routes/profile');
+var userRouter = require('./routes/user');
 var productsRouter = require('./routes/products');
 
 
@@ -61,7 +61,7 @@ app.use(function(req, res, next) {
 
 
 app.use('/', indexRouter);
-app.use('/profile', profileRouter);
+app.use('/user', userRouter);
 app.use('/products', productsRouter);
 
 
