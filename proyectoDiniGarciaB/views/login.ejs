@@ -20,10 +20,13 @@
 			<!-- Show the "ultimos" products -->
 			<form action="/profile/login" method="POST">
 				<label for="usuario">Usuario (Email):</label><br>
-				<input type="email" id="mail" name="mail" required><br>
+				<input type="email" id="mail" name="mail" ><br>
+				<% if (locals.errores && errores.mail) { %>
+					<p class="error"><%= errores.mail.msg %></p>
+				<% } %>
 				
 				<label for="contrasenia">Contraseña:</label><br>
-				<input type="password" id="contrasenia" name="contrasenia" required><br>
+				<input type="password" id="contrasenia" name="contrasenia" ><br>
 				
 				<label for="recordarme">Recordarme:</label>
 				<input type="checkbox" id="recordarme" name="recordarme"><br>
