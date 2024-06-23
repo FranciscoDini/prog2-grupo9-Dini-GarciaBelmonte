@@ -3,10 +3,10 @@ const router = express.Router();
 /*validaciones*/
 const {body} = require('express-validator')
 const validations = [
-  body('fotoProducto').notEmpty().withMessage('Debes agregar una foto del producto'),
-  body('nombreProducto').notEmpty().withMessage('Debes agregar un nombre al producto'),
-  body('descripcion').notEmpty().withMessage('Debes agregar una descripcion al producto'),
-  body('texto').notEmpty().withMessage('Debes agregar un comentario al producto'),
+  body('fotoProducto').notEmpty().withMessage('Debes agregar una foto del producto').bail(),
+  body('nombreProducto').notEmpty().withMessage('Debes agregar un nombre al producto').bail(),
+  body('descripcion').notEmpty().withMessage('Debes agregar una descripcion al producto').bail(),
+  body('texto').notEmpty().withMessage('Debes agregar un comentario al producto').bail(),
 ]
 
 const controller = require('../controllers/productsController')

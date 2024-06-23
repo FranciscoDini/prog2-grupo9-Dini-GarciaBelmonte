@@ -164,7 +164,7 @@ const controller = {
   },
 
   comment: function (req, res) {
-    let errores = validationResult(req);
+    
     if (req.session.user == undefined) {
       return res.redirect('/profile/login')
     } else {
