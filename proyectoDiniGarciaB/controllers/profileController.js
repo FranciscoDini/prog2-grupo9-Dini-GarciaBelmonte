@@ -29,8 +29,11 @@ const controller = {
     },
 
     edit: function (req, res) {
-        //return res.send(req.session.user)
-        return res.render('profile-edit', { usuario: req.session.user })
+        if(req.session.user == undefined){
+            return res.redirect('/profile/register')
+        } else{
+            return res.render('profile-edit', { usuario: req.session.user })
+        }
     },
     register: (req, res) => {
         if (req.session.user != undefined) {
@@ -121,19 +124,28 @@ const controller = {
     },
 
     editProfile: function (req, res) {
+        let errors = validationResult(req)
+        //return res.send(req.body)
 
-        let form = req.body
+        if(errors.isEmpty()){
+            let form = req.body
 
         let datosEditados = {
             nombreUsuario: form.usuario,
             mail: form.email,
-            //contrasenia : bcrypt.hashSync(form.contrasenia, 10),
+            //contrasenia
             fechaNacimiento: form.fecha_nacimiento,
             dni: form.nro_documento,
             fotoPerfil: form.foto_perfil
         }
 
+        
 
+        if (form.contrasenia && form.contrasenia.trim() !== "" && form.contrasenia !== form.contraseniaVieja) {
+            datosEditados.contrasenia = bcrypt.hashSync(form.contrasenia, 10);
+        } else {
+            datosEditados.contrasenia = form.contraseniaVieja;
+        }
 
         let filtro = {
             where: [{ id: form.id }]
@@ -146,6 +158,9 @@ const controller = {
                 return console.log(err)
             });
 
+        } else {
+            return res.render('profile-edit', { usuario: req.session.user , errors : errors.array(), old : req.body})
+        }
     }
 };
 

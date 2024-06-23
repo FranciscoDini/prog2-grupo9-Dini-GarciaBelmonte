@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { body } = require('express-validator');
 let validations = [
-    body("email").notEmpty().withMessage("Debes ingresar un mail de usuario").bail(),
+    body("email").notEmpty().withMessage("Debes ingresar un mail de usuario").bail()
+    .isEmail().withMessage('Debes ingresar un Email válido').bail(),
     body("usuario").notEmpty().withMessage("Ingresar un nombre de usuario").bail(),
-
+    body("contrasenia").notEmpty().withMessage('debes ingresar una contraseña').bail()
+    .isLength({min:4}).withMessage('la contraseña debe tener 4 caracteres o más').bail()
 ];
 
 const controller = require('../controllers/profileController')

@@ -17,30 +17,67 @@
 			
 			<h2 class="products-title">Editar mi perfil</h2>
 			
-			<!-- Show the "ultimos" products -->
+			<% if (locals.errors) { %>
+				<div class="divErrores"> 
+					<%	for (let i = 0; i < errors.length; i++) { %>					
+				<p class="showError"><%= errors[i].msg %></p>	
+				<%} %>
+				</div>
+
+			<%	} %>
+
+			 <% if (locals.errors) { %>
+				<form action="/profile/edit" method="POST">
+					<input type="hidden" name="id" value="<%= usuario.id %>">
+					<input type="hidden" name="contraseniaVieja" value="<%= old.contrasenia%>">
+	
+					<label for="email">Email:</label><br>
+					<input type="email"  name="email" value="<%= old.email %>"><br>
+					
+					<label for="usuario">Usuario:</label><br>
+					<input type="text"  name="usuario" value="<%= old.usuario %>"><br>
+					
+					<label for="contrasenia">Contraseña:</label><br> 
+					<input type="password"  name="contrasenia" value="<%= old.contrasenia %>"><br>
+						
+					<label for="fecha_nacimiento">Fecha de Nacimiento:</label><br>
+					<input type="date"  name="fecha_nacimiento" value="<%=old.fecha_nacimiento %>"><br>
+					
+					<label for="nro_documento">Nro. de Documento:</label><br>
+					<input type="number" id="nro_documento" name="nro_documento" value="<%= old.nro_documento %>"><br>
+					
+					<label for="foto_perfil">Foto de Perfil:</label><br>
+					<input type="text"  name="foto_perfil" value="<%= old.foto_perfil %>"><br>	
+					
+					<input type="submit" value="Confirmar">
+				</form>
+
+			<% } else{%>
 			<form action="/profile/edit" method="POST">
 				<input type="hidden" name="id" value="<%= usuario.id %>">
+				<input type="hidden" name="contraseniaVieja" value="<%= usuario.contrasenia%>">
 
 				<label for="email">Email:</label><br>
-				<input type="email" id="email" name="email" value="<%= usuario.mail %>"required><br>
+				<input type="email" name="email" value="<%= usuario.mail %>"><br>
 				
 				<label for="usuario">Usuario:</label><br>
-				<input type="text" id="usuario" name="usuario" value="<%= usuario.nombreUsuario %>"required><br>
+				<input type="text"  name="usuario" value="<%= usuario.nombreUsuario %>"><br>
 				
-		<!--	<label for="contrasenia">Contraseña:</label><br> 
-				<input type="password" id="contrasenia" name="contrasenia" value="<%= usuario.contrasenia %>"required><br>
-				-->	
+				<label for="contrasenia">Contraseña:</label><br> 
+				<input type="password"  name="contrasenia" value="<%= usuario.contrasenia %>"><br>
+					
 				<label for="fecha_nacimiento">Fecha de Nacimiento:</label><br>
-				<input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<%=usuario.fechaNacimiento %>"required><br>
+				<input type="date"  name="fecha_nacimiento" value="<%=usuario.fechaNacimiento %>"><br>
 				
 				<label for="nro_documento">Nro. de Documento:</label><br>
-				<input type="number" id="nro_documento" name="nro_documento" value="<%= usuario.dni %>"required><br>
+				<input type="number"  name="nro_documento" value="<%= usuario.dni %>"><br>
 				
 				<label for="foto_perfil">Foto de Perfil:</label><br>
-				<input type="text" id="foto_perfil" name="foto_perfil" value="<%= usuario.fotoPerfil %>"><br>	
+				<input type="text" name="foto_perfil" value="<%= usuario.fotoPerfil %>"><br>	
 				
 				<input type="submit" value="Confirmar">
 			</form>
+			<% } %>
 		</div>
 
 	<!-- footer -->
