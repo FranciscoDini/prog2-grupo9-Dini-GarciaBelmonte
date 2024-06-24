@@ -25,8 +25,8 @@ let validationsRegister = [
         })
     }),
     body("usuario").notEmpty().withMessage("Ingresar un nombre de usuario").bail().isAlpha().withMessage("Tu usuario solo puede contener letras"),
-    body("contrasenia").notEmpty().withMessage("Ingrese una contraseña").bail().isLength({ min: 4 }).withMessage("Debe contener al menos 4 caracteres")
-
+    body("contrasenia").notEmpty().withMessage("Ingrese una contraseña").bail().isLength({ min: 4 }).withMessage("Debe contener al menos 4 caracteres"),
+    body('nroDocumento').notEmpty().withMessage('debes ingresar tu numero de documento')
 ];
 
 /* profile */

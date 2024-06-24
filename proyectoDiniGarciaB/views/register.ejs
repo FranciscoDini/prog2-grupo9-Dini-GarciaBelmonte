@@ -18,36 +18,63 @@
 			<h2 class="products-title">Registrate</h2>
 			
 			<!-- Show the "ultimos" products -->
+			<% if (locals.errors) { %>
+				<div class="divErrores"> 
+					<%	for (let i = 0; i < errors.length; i++) { %>					
+				<p class="showError"><%= errors[i].msg %></p>	
+				<%} %>
+				</div>
+
+			<%	} %>
+
+			 <% if (locals.errors) { %>
+				<form action="/user/register" method="POST">
+	
+					<label for="email">Email:</label><br>
+					<input type="email"  name="email" value="<%= old.email %>"><br>
+					
+					<label for="usuario">Usuario:</label><br>
+					<input type="text"  name="usuario" value="<%= old.usuario %>"> <br>
+					
+					<label for="contrasenia">Contraseña:</label><br> 
+					<input type="password"  name="contrasenia" value="<%= old.contrasenia %>"><br>
+						
+					<label for="fecha_nacimiento">Fecha de Nacimiento:</label><br>
+					<input type="date"  name="fechaNacimiento" value="<%= old.fechaNacimiento %>"><br>
+					
+					<label for="nro_documento">Nro. de Documento:</label><br>
+					<input type="number"  name="nroDocumento" value="<%= old.nroDocumento %>"><br>
+					
+					<label for="foto_perfil">Foto de Perfil:</label><br>
+					<input type="text"  name="fotoPerfil" value="<%= old.fotoPerfil %>"><br>	
+					
+					<input type="submit" value="Confirmar">
+				</form>
+
+			<% } else{%>
 			<form action="/user/register" method="POST">
+
 				<label for="email">Email:</label><br>
-				<input type="email" id="email" name="email" ><br>
-				<% if (locals.errores && errores.email) { %>
-					<p class="error"><%= errores.email.msg %></p>
-				<% } %>
+				<input type="email" name="email" value=""><br>
 				
 				<label for="usuario">Usuario:</label><br>
-				<input type="text" id="usuario" name="usuario" ><br>
-				<% if (locals.errores && errores.usuario) { %>
-					<p class="error"><%= errores.usuario.msg %></p>
-				<% } %>
+				<input type="text"  name="usuario" value=""><br>
 				
-				<label for="contrasenia">Contraseña:</label><br>
-				<input type="password" id="contrasenia" name="contrasenia" ><br>
-				<% if (locals.errores && errores.contrasenia) { %>
-					<p class="error"><%= errores.contrasenia.msg %></p>
-				<% } %>
-				
+				<label for="contrasenia">Contraseña:</label><br> 
+				<input type="password"  name="contrasenia" value=""><br>
+					
 				<label for="fecha_nacimiento">Fecha de Nacimiento:</label><br>
-				<input type="date" id="fechaNacimiento" name="fechaNacimiento" ><br>
+				<input type="date"  name="fecha_nacimiento" value=""><br>
 				
 				<label for="nro_documento">Nro. de Documento:</label><br>
-				<input type="number" id="nroDocumento" name="nroDocumento" ><br>
+				<input type="number"  name="nro_documento" value=""><br>
 				
 				<label for="foto_perfil">Foto de Perfil:</label><br>
-				<input type="text" id="fotoPerfil" name="fotoPerfil"><br>
+				<input type="text" name="foto_perfil" value=""><br>	
 				
-				<input type="submit" value="Registrarse">
+				<input type="submit" value="Confirmar">
 			</form>
+			<% } %>
 
 
 	<!-- footer -->

@@ -92,8 +92,8 @@ const controller = {
     },
 
     store: (req, res) => {
-        let errores = validationResult(req)
-        if (errores.isEmpty()) {
+        let errors = validationResult(req)
+        if (errors.isEmpty()) {
             let form = req.body;
 
             let user = {
@@ -114,7 +114,7 @@ const controller = {
 
         } else {
             return res.render("register", {
-                errores : errores.mapped(),
+                errors : errors.array(),
                 old: req.body,
             })
         }
